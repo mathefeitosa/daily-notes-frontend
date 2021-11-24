@@ -15,12 +15,9 @@
           lg="4"
           v-for="note in filteredNotes"
           v-bind:key="note._id"
+          @click="noteClickHandler(note._id)"
         >
-          <v-card elevation="3" height="200">
-            <v-card-title>{{ note.date }}</v-card-title>
-            <v-card-subtitle><v-icon>mdi-home</v-icon></v-card-subtitle>
-            <v-card-text>{{ note.text }}</v-card-text>
-          </v-card>
+          <note :date="note.date" :id="note._id" :text="note.text"></note>
         </v-col>
       </v-row>
     </v-container>
@@ -31,8 +28,10 @@
 </template>
 
 <script>
+import Note from "../components/Note.vue";
 export default {
-  name: "HelloWorld",
+  name: "Home",
+  components: { Note },
   data() {
     return {
       search: "",
@@ -51,6 +50,13 @@ export default {
       return this.notes.filter((note) => {
         return note.date.includes(this.$store.state.search);
       });
+    },
+  },
+  methods: {
+    noteClickHandler(id) {
+      console.log("Loading this note ==>", id);
+      this.$store.dispatch("selectNote", id);
+      this.$router.push("/viewnote");
     },
   },
   mounted() {

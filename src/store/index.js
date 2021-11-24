@@ -10,9 +10,10 @@ export default new Vuex.Store({
   state: {
     notes: [],
     token:
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYxOTJjNzRhMjQ2Y2E1MDgwMzU5ZDJlYiIsImV4cCI6MTYzNzc3MTczN30.uLlaULoP1fzISAbrakekEaLx-nYffa2zFT74moXsq9A",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjYxOTJjNzRhMjQ2Y2E1MDgwMzU5ZDJlYiIsImV4cCI6MTYzNzc5MDc4M30.Qb_0px_6f25qvnaMGqkMxVESFCYwHtvztLNiFx0kItg",
     email: null,
     search: "",
+    selectedNoteId: "",
   },
   mutations: {
     setNotes(state, notes) {
@@ -24,8 +25,14 @@ export default new Vuex.Store({
     setSearch(state, search) {
       state.search = search;
     },
+    setSelectedNoteId(state, id) {
+      state.selectedNoteId = id;
+    },
   },
   actions: {
+    selectNote({ commit }, id) {
+      commit("setSelectedNoteId", id);
+    },
     getNotes({ commit }) {
       axios
         .post("/notes", {

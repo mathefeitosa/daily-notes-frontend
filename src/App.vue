@@ -12,7 +12,9 @@
 <script>
 export default {
   name: "App",
-
+  beforeMount() {
+    this.$store.dispatch("getNotes");
+  },
   data: () => ({
     //
   }),
